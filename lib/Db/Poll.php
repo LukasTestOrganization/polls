@@ -233,7 +233,7 @@ class Poll extends Entity implements JsonSerializable {
 		return htmlspecialchars($this->description);
 	}
 
-	private function getDisplayName(): string {
+	public function getDisplayName(): string {
 		return \OC::$server->getUserManager()->get($this->owner) instanceof IUser
 			? \OC::$server->getUserManager()->get($this->owner)->getDisplayName()
 			: $this->owner;

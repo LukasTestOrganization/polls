@@ -34,7 +34,9 @@ use OCP\AppFramework\Http\Template\PublicTemplateResponse;
 use OCA\Polls\Exceptions\NoUpdatesException;
 use OCA\Polls\Db\Share;
 use OCA\Polls\Db\Poll;
+use OCA\Polls\Db\Comment;
 use OCA\Polls\Model\Acl;
+use OCA\Polls\Service\AnonymizeService;
 use OCA\Polls\Service\CommentService;
 use OCA\Polls\Service\MailService;
 use OCA\Polls\Service\OptionService;
@@ -147,7 +149,7 @@ class PublicController extends Controller {
 			$this->acl->setToken($token);
 			return [
 				'acl' => $this->acl,
-				'poll' => $this->acl->getPoll(),
+				'poll' => AnonymizeService::replaceUserId($this->acl->getPoll()),
 			];
 		});
 	}
@@ -194,7 +196,7 @@ class PublicController extends Controller {
 	 */
 	public function getComments(string $token): DataResponse {
 		return $this->response(function () use ($token) {
-			return ['comments' => $this->commentService->list(0, $token)];
+			return ['comments' => AnonymizeService::replaceUserId($this->commentService->list(0, $token))];
 		});
 	}
 
@@ -205,7 +207,7 @@ class PublicController extends Controller {
 	 */
 	public function getVotes(string $token): DataResponse {
 		return $this->response(function () use ($token) {
-			return ['votes' => $this->voteService->list(0, $token)];
+			return ['votes' => AnonymizeService::replaceUserId($this->voteService->list(0, $token))];
 		});
 	}
 
@@ -216,7 +218,7 @@ class PublicController extends Controller {
 	 */
 	public function getOptions(string $token): DataResponse {
 		return $this->response(function () use ($token) {
-			return ['options' => $this->optionService->list(0, $token)];
+			return ['options' => AnonymizeService::replaceUserId($this->optionService->list(0, $token))];
 		});
 	}
 
@@ -357,7 +359,6 @@ class PublicController extends Controller {
 			return ['share' => $this->shareService->deleteEmailAddress($token)];
 		});
 	}
-
 
 	/**
 	 * Create a personal share from a public share
