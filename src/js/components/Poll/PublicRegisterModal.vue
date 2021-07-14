@@ -285,7 +285,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 	.modal__registration {
 		display: flex;
 		flex-wrap: wrap;

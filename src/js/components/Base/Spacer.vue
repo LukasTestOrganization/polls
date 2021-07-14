@@ -21,7 +21,9 @@
   -->
 
 <template lang="html">
-	<Component :is="tag" class="spacer" />
+	<Component :is="tag" class="spacer">
+		<slot />
+	</Component>
 </template>
 
 <script>
@@ -36,7 +38,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 	.spacer {
 		flex: 1;
 	}

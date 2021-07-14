@@ -52,7 +52,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 	h2 .badge {
 		font-size: 0.6em;
 	}

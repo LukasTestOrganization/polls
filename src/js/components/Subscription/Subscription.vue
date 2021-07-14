@@ -64,7 +64,7 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
 	.subscription {
 		padding: 8px;
 	}

@@ -1,20 +1,5 @@
 // experimental colored background in the main area
 
-[class*='area__'] {
-	padding: 8px;
-	background-color: var(--color-main-background);
-	border-radius: var(--border-radius);
-	margin: 12px 6px;
-	min-width: 320px;
-}
-
-.area__header {
-	display: flex;
-	align-items: flex-start;
-	margin-left: 44px !important;
-	min-width: 286px;
-}
-
 .experimental {
 	&.app-polls.bgcolored {
 		.app-navigation {
@@ -23,10 +8,13 @@
 		}
 		.app-content {
 			background-color: var(--color-primary-light);
-			[class*='area__'] {
-				box-shadow: 2px 2px 6px var(--color-box-shadow);
-				margin: 12px;
-			}
+		}
+		[class*='area__'] {
+			margin-top: 12px;
+			margin-right: 6px;
+			margin-bottom: 12px;
+			box-shadow: 2px 2px 6px var(--color-box-shadow);
+			// margin: 12px;
 		}
 	}
 

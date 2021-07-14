@@ -22,14 +22,14 @@
 
 <template lang="html">
 	<div :class="['input-div', { numeric: useNumModifiers }]">
-		<div v-if="useNumModifiers" class="modifier subtract icon icon-polls-minus" @click="$emit('subtract')" />
+		<div v-if="useNumModifiers" class="modifier subtract icon-polls-minus" @click="$emit('subtract')" />
 		<input ref="input"
 			:value="value"
 			:placeholder="placeholder"
 			:class="['input', signalingClass]"
 			@input="$emit('input', $event.target.value)"
 			@keyup.enter="$emit('submit', $event.target.value)">
-		<div v-if="useNumModifiers" class="modifier add icon icon-add" @click="$emit('add')" />
+		<div v-if="useNumModifiers" class="modifier add icon-add" @click="$emit('add')" />
 		<ButtonDiv v-if="!useNumModifiers && !noSubmit" submit @click="$emit('submit', $refs.input.value)" />
 	</div>
 </template>
@@ -89,79 +89,76 @@ export default {
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 	.input-div {
 		position: relative;
 		display: flex;
-	}
 
-	.input-div.numeric {
-		min-width: 100px;
-		width: 110px;
-		display: block;
-	}
+		&.numeric {
+			min-width: 100px;
+			width: 110px;
+			display: block;
 
-	.numeric input {
-		text-align: center;
-	}
-
-	input {
-		width: 100%;
-		background-repeat: no-repeat;
-		background-position: right 12px center;
-		&:empty:before {
-			color: grey;
+			input {
+				text-align: center;
+			}
 		}
 
-		&.error {
-			border-color: var(--color-error);
-			background-color: var(--color-background-error);
-			background-image: var(--icon-polls-no);
-			color: var(--color-foreground-error);
+		input {
+			width: 100%;
+			background-repeat: no-repeat;
+			background-position: right 12px center;
+
+			&:empty:before {
+				color: grey;
+			}
+
+			&.error {
+				border-color: var(--color-error);
+				background-color: var(--color-background-error);
+				background-image: var(--icon-polls-no);
+				color: var(--color-foreground-error);
+			}
+
+			&.checking {
+				border-color: var(--color-warning);
+				background-image: var(--icon-polls-loading);
+			}
+
+			&.success, &.icon-confirm.success {
+				border-color: var(--color-success);
+				background-image: var(--icon-polls-yes);
+				background-color: var(--color-background-success) !important;
+				color: var(--color-foreground-success);
+			}
 		}
 
-		&.checking {
-			border-color: var(--color-warning);
-			background-image: var(--icon-polls-loading);
-		}
-
-		&.success, &.icon-confirm.success {
-			border-color: var(--color-success);
-			background-image: var(--icon-polls-yes);
-			background-color: var(--color-background-success) !important;
-			color: var(--color-foreground-success);
-		}
-
-		&.icon {
+		.modifier {
 			flex: 0;
-			padding: 0 17px;
+			position: absolute;
+			top: 0;
+			height: 32px;
+			margin: 4px 1px;
+			padding: 0 14px;
+			border-color: var(--color-border-dark);
+			cursor: pointer;
+
+			&:hover {
+				background-color: var(--color-background-hover)
+			}
+
+			&.add {
+				right: 0;
+				border-left: solid 1px var(--color-border-dark);
+				border-radius: 0 var(--border-radius) var(--border-radius) 0;
+			}
+
+			&.subtract {
+				left: 0;
+				border-right: solid 1px var(--color-border-dark);
+				border-radius: var(--border-radius) 0 0 var(--border-radius);
+			}
 		}
 	}
-
-	.add {
-		right: 0;
-		border-left: solid 1px;
-		border-radius: 0 var(--border-radius) var(--border-radius) 0;
-	}
-
-	.subtract {
-		left: 0;
-		border-right: solid 1px;
-		border-radius: var(--border-radius) 0 0 var(--border-radius);
-	}
-
-	.modifier {
-		position: absolute;
-		top: 0;
-		height: 32px;
-		margin: 4px 1px;
-		padding: 0 14px;
-		border-color: var(--color-border-dark);
-		cursor: pointer;
-		&:hover {
-			background-color: var(--color-background-hover)
-		}
-	}
-
 </style>

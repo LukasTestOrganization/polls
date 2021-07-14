@@ -55,6 +55,8 @@
 }
 
 .icon-circles { background-image: var(--icon-circles); }
+.icon-clock { background-image: var(--icon-clock); }
+.icon-clock-fff { background-image: var(--icon-clock--fff); }
 .icon-handle { background-image: var(--icon-polls-handle); }
 .icon-list-view { background-image: var(--icon-polls-list-view); }
 .icon-polls { background-image: var(--icon-polls); }
@@ -80,6 +82,7 @@
 .icon-polls-yes { background-image: var(--icon-polls-yes); }
 
 .theme--dark {
+	.icon-clock { background-image: var(--icon-clock--fff); }
 	.icon-circles { background-image: var(--icon-circles--fff); }
 	.icon-handle { background-image: var(--icon-polls-handle--fff); }
 	.icon-list-view { background-image: var(--icon-polls-list-view-fff); }

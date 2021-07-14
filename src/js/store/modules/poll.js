@@ -34,6 +34,7 @@ const defaultPoll = () => ({
 	description: '',
 	descriptionSafe: '',
 	owner: '',
+	ownerDisplayName: '',
 	created: 0,
 	expire: 0,
 	deleted: 0,

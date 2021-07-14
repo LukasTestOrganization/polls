@@ -21,7 +21,7 @@
   -->
 
 <template>
-	<div>
+	<div class="side-bar-tab-options">
 		<ConfigBox v-if="!isOwner" :title="t('polls', 'As an admin you may edit this poll')" icon-class="icon-checkmark" />
 		<ConfigBox :title="t('polls', 'Allow proposals from users')" icon-class="icon-category-customization">
 			<ConfigProposals />
@@ -70,3 +70,28 @@ export default {
 	},
 }
 </script>
+
+<style lang="scss">
+.side-bar-tab-options {
+	.owner {
+		display: flex;
+		position: relative;
+		left: -16px;
+		width: 0;
+	}
+
+	.draggable:hover .owner {
+		display: none;
+	}
+
+	.option-item {
+		border-bottom: 1px solid var(--color-border);
+		&:active,
+		&:hover {
+			transition: var(--background-dark) 0.3s ease;
+			background-color: var(--color-background-dark);
+		}
+	}
+}
+
+</style>

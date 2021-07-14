@@ -70,7 +70,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 	.comment-add {
 		margin-bottom: 24px;
 		display: flex;

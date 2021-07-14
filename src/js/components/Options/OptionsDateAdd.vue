@@ -28,7 +28,7 @@
 		@change="changedDate"
 		@pick="pickedDate">
 		<template #input>
-			<ButtonDiv :title="t('polls', 'Add new date option')" />
+			<ButtonDiv :title="caption" />
 		</template>
 
 		<template #header>
@@ -82,6 +82,13 @@ export default {
 		ButtonDiv,
 		DatetimePicker,
 		Spacer,
+	},
+
+	props: {
+		caption: {
+			type: String,
+			default: t('polls', 'Add date'),
+		},
 	},
 
 	data() {
@@ -300,7 +307,7 @@ export default {
 }
 </style>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .icon-polls-yes {
 	padding: 5px 1px 5px 1px;
 	height: 34px;

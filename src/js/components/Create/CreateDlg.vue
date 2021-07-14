@@ -111,7 +111,7 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
 .create-dialog {
 	background-color: var(--color-main-background);
 	padding: 8px 20px;

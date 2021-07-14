@@ -30,8 +30,6 @@
 				:class="['participant', {currentuser: (participant.userId === acl.userId) }]">
 				<UserItem v-bind="participant" condensed />
 
-				<!-- <UserMenu v-if="participant.userId === acl.userId" /> -->
-
 				<ActionDelete v-if="acl.allowEdit"
 					:title="t('polls', 'Delete votes')"
 					@delete="removeUser(participant.userId)" />
@@ -62,7 +60,6 @@ export default {
 	name: 'VoteTable',
 	components: {
 		ActionDelete,
-		// UserMenu: () => import('../User/UserMenu'),
 		VoteColumn,
 	},
 
@@ -119,7 +116,7 @@ export default {
 		height: 4.5em;
 		order: 10;
 		line-height: 1.5em;
-		padding: 4px 1px;
+		padding: 4px;
 		border-top: solid 1px var(--color-border-dark);
 		&.currentuser {
 			order:5;
@@ -146,13 +143,17 @@ export default {
 		align-items: stretch;
 		min-width: 85px;
 		max-width: 280px;
+		border-left: 1px solid var(--color-border-dark);
 		&>div {
 			display: flex;
 			justify-content: center;
 			align-items: center;
 		}
 		.vote-table-header-item {
-			align-items: flex-start;
+			align-items: stretch;
+			flex: 1;
+			// padding: 0 8px;
+			order: 1;
 		}
 	}
 
@@ -164,12 +165,6 @@ export default {
 			background-color: var(--color-polls-background-yes);
 			margin: 0 4px;
 		}
-	}
-
-	.vote-table-header-item {
-		flex: 1;
-		padding: 0 8px;
-		order: 1;
 	}
 
 	.vote-item {
@@ -264,7 +259,7 @@ export default {
 			margin: 0
 		}
 
-		.participant.user:not(.currentuser), .vote-item:not(.currentuser) {
+		.participant:not(.currentuser), .vote-item:not(.currentuser) {
 			display: none;
 		}
 

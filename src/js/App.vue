@@ -205,6 +205,13 @@ export default {
 </script>
 
 <style  lang="scss">
+[class*='area__'] {
+	padding: 8px;
+	background-color: var(--color-main-background);
+	border-radius: var(--border-radius);
+	margin-left: 33px;
+	min-width: 270px;
+}
 
 .modal__content {
 	padding: 14px;

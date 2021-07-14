@@ -22,13 +22,14 @@
 
 <template>
 	<AppContent :class="[{ closed: closed }, poll.type]">
+		<PollHeaderButtons />
 		<div class="area__header">
-			<PollTitle />
-			<PollHeaderButtons />
+			<PollTitle showSubText />
+			<MarkUpDescription />
 		</div>
-		<div class="description">
-			<MarkUpDescription class="area__description" />
-			<OptionProposals v-if="acl.allowAddOptions && proposalsAllowed && !closed" class="area__proposal" />
+
+		<div v-if="acl.allowAddOptions && proposalsAllowed && !closed" class="area__proposal">
+			<OptionProposals />
 		</div>
 
 		<div class="area__main" :class="viewMode">
@@ -182,36 +183,13 @@ export default {
 
 </script>
 
-<style lang="scss" scoped>
-.description {
-	display: flex;
-	flex-wrap: wrap;
+<style lang="scss">
+.poll-title {
+	margin-bottom: 16px;
 }
 
 .markup-description {
-	padding: 8px;
-	flex: 2 1;
-}
-
-.option-proposals {
-	padding: 8px;
-	flex: 1 1;
-	align-self: flex-end;
-	border: 1px solid var(--color-polls-foreground-yes);
-	border-radius: var(--border-radius);
-	background-color: var(--color-polls-background-yes);
-	.mx-datepicker {
-		.mx-input {
-			background-clip: initial !important;
-		}
-	}
-}
-
-.header-actions {
-	display: flex;
-	flex-wrap: wrap-reverse;
-	flex: 0 1 auto;
-	justify-content: flex-end;
+	font-size: 1.1em;
 }
 
 .icon.icon-settings.active {

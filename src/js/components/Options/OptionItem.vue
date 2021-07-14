@@ -42,6 +42,12 @@
 					<div class="dow">
 						{{ event.from.dow }}
 					</div>
+					<div v-if="!event.dayLong" class="time">
+						{{ event.from.time }}
+						<span v-if="!event.dayLong && option.duration && event.to.sameDay">
+							- {{ event.to.time }}
+						</span>
+					</div>
 				</div>
 				<div v-if="option.duration && !event.to.sameDay" class="devider">
 					-
@@ -56,17 +62,20 @@
 					<div class="dow">
 						{{ event.to.dow }}
 					</div>
+					<div v-if=" !event.dayLong" class="time">
+						{{ event.to.time }}
+					</div>
 				</div>
 			</div>
 
-			<div class="event-time">
-				<div v-if="!event.dayLong" class="time-from">
+			<!-- <div class="event-time">
+				<div v-if="!event.dayLong" class="time">
 					{{ event.from.time }}
 				</div>
-				<div v-if="option.duration && !event.dayLong" class="time-to">
+				<div v-if="option.duration && !event.dayLong" class="time">
 					{{ event.to.time }}
 				</div>
-			</div>
+			</div> -->
 		</div>
 
 		<slot name="actions" />
@@ -199,7 +208,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+
 	.option-item {
 		display: flex;
 		align-items: center;
@@ -212,36 +222,62 @@ export default {
 		}
 	}
 
-	[class*='event'] {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-
 	.devider {
 		align-self: center;
 		color: var(--color-text-lighter);
 	}
 
+	.option-item__option--datebox {
+		display: flex;
+		// flex-direction: column;
+		// padding: 0 2px;
+		align-items: stretch;
+		justify-content: flex-start;
+		text-align: center;
+		hyphens: auto;
+	}
+
 	.event-date {
-		flex-direction: row !important;
-		align-items: stretch !important;
+		display: flex;
+		flex: 1;
+		flex-direction: row;
+		align-items: stretch;
 		justify-content: center;
-		.event-from {
-			padding-bottom: 8px;
-			flex: 0;
-		}
-		.event-to {
-			flex: 0;
-			font-size: 0.8em;
-			justify-content: flex-end;
+		background-color: var(--color-primary-light);
+
+		.event-from, .event-to {
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+			flex: 1;
+			// flex-direction: column;
+			// align-items: center;
+			// padding-bottom: 8px;
+			// flex: 0;
+
+			.month, .dow, .time {
+				white-space: pre;
+				font-size: 1.1em;
+				padding: 0 4px;
+				color: var(--color-text-lighter);
+			}
 			.day {
-				margin: 0;
+				font-size: 1.4em;
+				margin: 5px 0 5px 0;
+				padding: 0 4px;
+			}
+
+			.time {
+				font-size: 0.8em;
+				padding: 0 4px;
 			}
 		}
 	}
 
 	.event-time {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 		margin-top: 8px;
 		.time-to {
 			font-size: 0.8em;
@@ -252,7 +288,7 @@ export default {
 		flex: 1;
 		opacity: 1;
 		white-space: normal;
-		padding-right: 4px;
+		// padding-right: 4px;
 	}
 
 	.option-item__option--text {
@@ -284,26 +320,6 @@ export default {
 
 	.option-item__handle {
 		margin-right: 8px;
-	}
-
-	.option-item__option--datebox {
-		display: flex;
-		flex-direction: column;
-		padding: 0 2px;
-		align-items: stretch;
-		justify-content: flex-start;
-		text-align: center;
-		hyphens: auto;
-
-		.month, .dow, .time {
-			white-space: pre;
-			font-size: 1.1em;
-			color: var(--color-text-lighter);
-		}
-		.day {
-			font-size: 1.4em;
-			margin: 5px 0 5px 0;
-		}
 	}
 
 </style>

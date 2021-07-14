@@ -21,11 +21,14 @@
   -->
 
 <template lang="html">
-	<div class="title">
-		<div class="title__title">
+	<div class="poll-title">
+		<div class="poll-title__title">
 			{{ title }}
 		</div>
-		<Badge v-if="showBadge" v-bind="badge" />
+		<div v-if="showSubText" class="poll-title__sub">
+			<span>{{ subTextLeft }}</span> |
+			<span :class="[subTextRight.class, subTextRight.icon ]">{{ subTextRight.text }}</span>
+		</div>
 	</div>
 </template>
 
@@ -36,8 +39,11 @@ import moment from '@nextcloud/moment'
 export default {
 	name: 'PollTitle',
 
-	components: {
-		Badge: () => import('../Base/Badge'),
+	props: {
+		showSubText: {
+			type: Boolean,
+			default: false,
+		},
 	},
 
 	computed: {
@@ -45,47 +51,63 @@ export default {
 			title: (state) => state.poll.title,
 			expire: (state) => state.poll.expire,
 			deleted: (state) => state.poll.deleted,
+			ownerDisplayName: (state) => state.poll.ownerDisplayName,
+			pollCreated: (state) => state.poll.created,
 		}),
 
 		...mapGetters({
 			isClosed: 'poll/isClosed',
+			proposalsExpirySet: 'poll/proposalsExpirySet',
+			proposalsExpired: 'poll/proposalsExpired',
+			proposalsExpireRelative: 'poll/proposalsExpireRelative',
 		}),
 
-		showBadge() {
-			return (this.deleted || this.expire)
+		subTextLeft() {
+			return t('polls', 'A poll from {name}', { name: this.ownerDisplayName })
 		},
 
-		badge() {
+		subTextRight() {
 			if (this.deleted) {
 				return {
-					title: t('polls', 'Archived'),
+					text: t('polls', 'Archived'),
 					icon: 'icon-category-app-bundles',
-					class: 'error',
+					class: 'archived',
 				}
 			}
 
 			if (this.isClosed) {
 				return {
-					title: t('polls', 'Closed {relativeTimeAgo}', { relativeTimeAgo: this.timeExpirationRelative }),
-					icon: 'icon-polls-closed-fff',
-					class: 'error',
+					text: t('polls', '{relativeTimeAgo}', { relativeTimeAgo: this.timeExpirationRelative }),
+					icon: 'icon-polls-closed',
+					class: 'closed',
+				}
+			}
+
+			if (this.proposalsExpirySet && !this.proposalsExpired) {
+				return {
+					text: t('polls', 'Proposals period ends {timeRelative}.', { timeRelative: this.proposalsExpireRelative }),
+					icon: 'icon-add',
+					class: 'proposal',
 				}
 			}
 
 			if (!this.isClosed && this.expire) {
 				return {
-					title: t('polls', 'Closing {relativeExpirationTime}', { relativeExpirationTime: this.timeExpirationRelative }),
-					icon: 'icon-calendar',
-					class: this.closeToClosing ? 'warning' : 'success',
+					text: t('polls', 'Closing {relativeExpirationTime}', { relativeExpirationTime: this.timeExpirationRelative }),
+					icon: 'icon-calendar-000',
+					class: this.closeToClosing ? 'closing' : 'open',
 				}
 			}
 
 			return {
-				show: false,
-				title: '',
-				icon: '',
-				class: '',
+				text: t('polls', '{dateRelative}', { dateRelative: this.dateCreatedRelative }),
+				icon: 'icon-clock',
+				class: 'created',
 			}
+		},
+
+		dateCreatedRelative() {
+			return moment.unix(this.pollCreated).fromNow()
 		},
 
 		closeToClosing() {
@@ -105,13 +127,37 @@ export default {
 </script>
 
 <style lang="scss">
-	.title {
-		display: flex;
-		flex: 1 0 230px;
-		align-items: center;
-		flex-wrap: wrap;
+	.poll-title {
+		.poll-title__sub {
+			opacity: 0.7;
+			line-height: 1.2em;
+			font-size: 1em;
+			[class^="icon-"], [class*=" icon-"] {
+				padding-left: 21px;
+				background-position: left center;
+			}
+			.closed {
+				color: var(--color-error);
+				font-weight: 700;
+			}
+			.closing {
+				color: var(--color-warning);
+				font-weight: 700;
+			}
+			.open {
+				// color: var(--color-success);
+				font-weight: 700;
+			}
+			.archived {
+				color: var(--color-error);
+				font-weight: 700;
+			}
+			.created {
+				color: var(--color-text-light);
+			}
+		}
 
-		.title__title {
+		.poll-title__title {
 			font-weight: bold;
 			font-size: 1.3em;
 			line-height: 2em;

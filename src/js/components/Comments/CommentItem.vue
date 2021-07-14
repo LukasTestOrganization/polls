@@ -92,7 +92,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 	.comment-item {
 		display: flex;
 		align-items: start;

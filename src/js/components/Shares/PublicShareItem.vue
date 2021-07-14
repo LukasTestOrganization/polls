@@ -56,7 +56,7 @@ export default {
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .share-item {
 	display: flex;
 	flex: 1;

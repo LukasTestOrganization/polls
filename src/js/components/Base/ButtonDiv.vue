@@ -82,7 +82,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 	.withIcon {
 		padding-left: 34px;
 		background-position: 12px center;

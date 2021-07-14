@@ -145,7 +145,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 [class^='item__'] {
 	padding-right: 8px;

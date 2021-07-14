@@ -96,7 +96,7 @@ export default {
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .buttons {
 	display: flex;
 	justify-content: flex-end;

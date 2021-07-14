@@ -50,7 +50,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 	textarea.edit-description {
 		height: 210px;
 	}

@@ -129,30 +129,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-	.owner {
-		display: flex;
-		position: relative;
-		left: -16px;
-		width: 0;
-		&:hover {
-			display: none;
-		}
-	}
-
-	.draggable:hover .owner {
-		display: none;
-	}
-
-	.option-item {
-		border-bottom: 1px solid var(--color-border);
-		&:active,
-		&:hover {
-			transition: var(--background-dark) 0.3s ease;
-			background-color: var(--color-background-dark);
-		}
-	}
-
+<style lang="scss">
 	.optionAdd {
 		display: flex;
 	}

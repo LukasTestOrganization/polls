@@ -41,11 +41,7 @@ export default {
 		}),
 
 		markedDescription() {
-			if (this.description) {
-				return DOMPurify.sanitize(marked(this.description))
-			}
-			return t('polls', 'No description provided')
-
+			return DOMPurify.sanitize(marked(this.description))
 		},
 	},
 }

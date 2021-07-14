@@ -239,7 +239,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 	.poll-list__list {
 		width: 100%;
 		display: flex;
